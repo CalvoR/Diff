@@ -8,7 +8,7 @@ struct difference   {
 
 	int startLineSrc ;
 	int endLineSrc ;
-    int startLineDest ;
+	int startLineDest ;
 	int endLineDest ;
 
 	t_difference* nextDiff;

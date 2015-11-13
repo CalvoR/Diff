@@ -16,5 +16,4 @@ void FreeFiles (FILE*, FILE*);
 FILE* ChargeFile (char*);
 
 
-
 #endif // PROTOTYPES_H_INCLUDED
