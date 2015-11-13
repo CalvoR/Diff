@@ -4,10 +4,8 @@ int  compare(char* str1, char* str2)
 {
 	int i = 0;
 
-//	printf("%s,  %s\n", str1, str2);
 	while (str1[i] != '\0' || str2[i] != '\0')
 	{
-//       printf("%c,  %c\n", str1[i], str2[i]);
 		if (str1[i] != str2[i])
 		{
 			return i;
@@ -43,7 +41,6 @@ int find_difference(FILE* fd_src, FILE* fd_dest)
 		return -1;
 	}
 
-	printf("%s,  %s\n", read_src, read_dest);
 	i = compare(read_src, read_dest);
 	free(read_src);
 	free(read_dest);
