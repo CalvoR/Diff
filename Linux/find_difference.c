@@ -47,6 +47,19 @@ int find_difference(FILE* fd_src, FILE* fd_dest)
 	return i;
 }
 
+int  cmpt_line(FILE* file)
+{
+	int c = 0;
+	int nb_ligne_file = 0;
+	
+	while ((c = fgetc(file)) != EOF)
+	{
+		if (c == '\n')
+			nb_ligne_file++;
+	}
+	return nb_ligne_file
+}
+
 int main(int argc, char** argv)
 {
 	int i = 0;
@@ -58,25 +71,22 @@ int main(int argc, char** argv)
 
 	if (argc == 0)
 		return 0;
+
 	src = fopen(argv[1], "r");
 	dest = fopen(argv[2], "r");
+
 	if (src == NULL || dest == NULL)
 		printf("erreur lecture de fichier\n");
-	while ((c = fgetc(src)) != EOF)
-	{
-		if (c == '\n')
-			nb_ligne_src++;
-	}
-	c = 0;
-	while ((c = fgetc(dest)) != EOF)
-	{
-		if (c == '\n')
-			nb_ligne_dest++;
-	}
+
+	nb_ligne_source = cmpt_line(src);
+	nb_ligne_dest = cmpt_line(dest);
+
 	fclose(src);
 	fclose(dest);
+
 	src = fopen(argv[1], "r");
 	dest = fopen(argv[2], "r");
+
 	if (src == NULL || dest == NULL)
 		printf("erreur lecture de fichier\n");
 
