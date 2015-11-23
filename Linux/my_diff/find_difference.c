@@ -1,4 +1,4 @@
-#include "Prototypes.h"
+#include "find_difference.h"
 
 int  compare(char* str1, char* str2)
 {
@@ -15,100 +15,40 @@ int  compare(char* str1, char* str2)
 	return -2;
 }
 
-int find_difference(FILE* fd_src, FILE* fd_dest)
+int find_difference(t_difference* diff, t_env* env)
 {
-	char* read_src;
-	char* read_dest;
 	ssize_t read;
 	ssize_t read2;
 	size_t len = 0;
 	size_t len2 = 0;
 	int i = 0;
+	int count = 0;
 
-	read = getline(&read_src, &len, fd_src);
-	
-
-	if (read_src == NULL)
+	while (count < env->nbr_line_file1 || count < env->nbr_line_file2)
 	{
-		printf("erreur source");
-		return -1;
+		diff->num_line = count;
+		if (count < env->nbr_line_file1)
+			read = getline(&diff->line_file1, &len, env->fd_file1);
+		else
+			diff->line_file1 = "\0";
+		if (count < env->nbr_line_file2)
+			read2 = getline(&diff->line_file2, &len2, env->fd_file2); 
+		else
+			diff->line_file2 = "\0";
+		i = compare(diff->line_file1, diff->line_file2);
+		if (i >= 0)
+		{
+			diff->state = 'c';
+			diff = Add_list(diff);
+			while (diff->next != NULL)
+			{
+				diff = diff->next;
+			}
+		}
+		count++;
+		len = 0;
+		len2 = 0;
 	}
-
-	read2 = getline(&read_dest, &len2, fd_dest); 
-	if (read_dest == NULL)
-	{
-		printf("erreur dest");
-		return -1;
-	}
-
-	i = compare(read_src, read_dest);
-	free(read_src);
-	free(read_dest);
 	return i;
 }
 
-int  cmpt_line(FILE* file)
-{
-	int c = 0;
-	int nb_ligne_file = 0;
-	
-	while ((c = fgetc(file)) != EOF)
-	{
-		if (c == '\n')
-			nb_ligne_file++;
-	}
-	return nb_ligne_file
-}
-
-int main(int argc, char** argv)
-{
-	int i = 0;
-	int c = 0;
-	FILE* src;
-	FILE* dest;
-	int nb_ligne_src = 0;
-	int nb_ligne_dest = 0;
-
-	if (argc == 0)
-		return 0;
-
-	src = fopen(argv[1], "r");
-	dest = fopen(argv[2], "r");
-
-	if (src == NULL || dest == NULL)
-		printf("erreur lecture de fichier\n");
-
-	nb_ligne_source = cmpt_line(src);
-	nb_ligne_dest = cmpt_line(dest);
-
-	fclose(src);
-	fclose(dest);
-
-	src = fopen(argv[1], "r");
-	dest = fopen(argv[2], "r");
-
-	if (src == NULL || dest == NULL)
-		printf("erreur lecture de fichier\n");
-
-	if (nb_ligne_src > nb_ligne_dest)
-	{
-		while(nb_ligne_src > 0)
-		{
-			i = find_difference(src, dest);
-			printf("%d\n", i);
-			nb_ligne_src--;
-		}
-	}
-	else
-	{
-		while(nb_ligne_dest > 0)
-		{
-			i = find_difference(src, dest);
-			printf("%d\n", i);
-			nb_ligne_dest--;
-		}
-	}
-	fclose(src);
-	fclose(dest);
-	return 0;
-}

@@ -1,12 +1,14 @@
 NAME	=	my_diff
 
-SRC	=	main.c
+SRC	=	main.c			\
+		Liste.c			\
+		find_difference.c	
 
 OBJS	=	$(SRC:.c=.o)
 
 CC	=	gcc
 
-CFLAGS	=	-W -Wall -Werror
+CFLAGS	=	-W -Wall 
 
 all:	$(NAME)
 

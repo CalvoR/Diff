@@ -2,6 +2,7 @@
 #define STRUCTURE_H_INCLUDED
 
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef enum e_bool {false = 0, true = 1} bool;
 
@@ -22,10 +23,8 @@ typedef struct s_difference
 	char*			line_file1;
 	char*			line_file2;
 	int			num_line;
-	bool			change;
-	bool			appened;
-	bool			deleted;
-	t_difference*		next;
+	char			state;
+	struct t_difference*	next;
 
 } t_difference;
 
