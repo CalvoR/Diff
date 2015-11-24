@@ -36,8 +36,6 @@ int main(int argc, char** argv)
         cursor++;
     }
 
-    char* lineSrc, *lineDest;
-
 
     ////
     ////

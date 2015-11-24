@@ -15,6 +15,9 @@ int CheckOption(char*);
 void FreeFiles (FILE*, FILE*);
 FILE* ChargeFile (char*);
 
+	// Difference Functions
+	
+int	find_difference(FILE* fd_src, FILE* fd_dest);
 
 
 #endif // PROTOTYPES_H_INCLUDED
