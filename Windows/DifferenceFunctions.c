@@ -26,7 +26,7 @@ int find_difference(FILE* fd_src, FILE* fd_dest)
 	int i = 0;
 
 	read = getline(&read_src, &len, fd_src);
-
+	
 
 	if (read_src == NULL)
 	{
@@ -34,7 +34,7 @@ int find_difference(FILE* fd_src, FILE* fd_dest)
 		return -1;
 	}
 
-	read2 = getline(&read_dest, &len2, fd_dest);
+	read2 = getline(&read_dest, &len2, fd_dest); 
 	if (read_dest == NULL)
 	{
 		printf("erreur dest");
@@ -51,18 +51,19 @@ int  cmpt_line(FILE* file)
 {
 	int c = 0;
 	int nb_ligne_file = 0;
-
+	
 	while ((c = fgetc(file)) != EOF)
 	{
 		if (c == '\n')
 			nb_ligne_file++;
 	}
-	return nb_ligne_file;
+	return nb_ligne_file
 }
 
 int main(int argc, char** argv)
 {
 	int i = 0;
+	int c = 0;
 	FILE* src;
 	FILE* dest;
 	int nb_ligne_src = 0;
@@ -77,7 +78,7 @@ int main(int argc, char** argv)
 	if (src == NULL || dest == NULL)
 		printf("erreur lecture de fichier\n");
 
-	nb_ligne_src = cmpt_line(src);
+	nb_ligne_source = cmpt_line(src);
 	nb_ligne_dest = cmpt_line(dest);
 
 	fclose(src);
