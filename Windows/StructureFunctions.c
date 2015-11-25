@@ -12,7 +12,6 @@ void init_struct_diff(t_difference* diff)
 
 int	init_struct_env(t_env* env, int argc, char** argv)
 {
-
 	env->name_file2 = argv[argc-1];
 	env->name_file1 = argv[argc-2];
 	if (open_file(env) == -1)

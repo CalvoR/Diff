@@ -10,38 +10,43 @@ void help()
 
 int main (int argc, char** argv)
 {
-	t_env		env;
-	t_difference	diff;
+	t_env		env;        // structure of specifics about the current environment of execution (including file details)
+	t_difference	diff;   // linked-list that contains details about each difference that was found
 
-    int cursor = 1; // index of the current argument
+    int cursor = 1;         // index of the current argument
 
 	if (argc < 3) {
-		printf("pas assez d'argument\n");
+		printf("Il n'y a pas assez d'argument.\n");
 		return 0;
 	}
 
 	if (init_struct_env(&env, argc, argv) == -1)    {
-		printf("erreur initialisation structure\n");
+		printf("Erreur d'initialisation de la structure.\n");
 		return -1;
 	}
 	init_struct_diff(&diff);
 
     void (* fonctionList[NB_OPTIONS])(t_difference, t_env) = {help}; /** ajouter le nom de la fonction à l'index correspondant dans le tableau des options **/
+                                                                    // this contains a list of the function's names corresponding with table of the options
 
-    while(cursor < argc-2){
-        if(argv[cursor][0] == '-'){
-            fonctionList[CheckOption(argv[cursor])](diff, env); /** le nombre d'argument de cette fonction peut changer **/
-
-            /** creer un appel direct à la focntion via le tableau de pointeur de fonction + verifie le nombre d'argument à envoyer**/
-        }
-        cursor++;
-    }
-
-	if (env.nbr_option == 0)
+	if (env.nbr_option == 0)        // case of classic
 	{
 		if (find_difference(&diff, &env) == -2)
 			printf("Pas de difference\n");
 	}
+	else
+    {
+        while(cursor < argc-2){
+            if(argv[cursor][0] == '-'){
+                fonctionList[CheckOption(argv[cursor])](diff, env); /** the argument number of this function can change **/
+
+                /** creer un appel direct à la focntion via le tableau de pointeur de fonction + verifie le nombre d'argument à envoyer**/
+            }   // this creates a direct call to the function through the table of function pointers + checks the number of argument to send
+            cursor++;
+        }
+    }
+
+
 	result(&diff);
 	close_file(&env);
 	return 0;

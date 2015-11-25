@@ -30,18 +30,30 @@ int	cmpt_line(FILE* file)
 
 ssize_t getline (char**line, size_t* lineLength, FILE*file)
 {
-    int i = 0;
     ssize_t countChar = 0;
+    int i=0;
     char currentChar = ' ';
+    *(lineLength) = 0;
 
-    for(i=0; i<*lineLength; i++)
-    {
-        if (currentChar=fgetc(file), currentChar == '\0' || !feof(file))
-            return countChar;
+    if (file == NULL)
+        return -1;
 
-        (*line)[i] = currentChar;
+    do {                // read the file until the next '\n' to set the new string size
+        if (currentChar=fgetc(file), feof(file))
+            return -1;
         countChar++;
-    }
+    } while (currentChar != '\n');
+
+    fseek(file, (-1)*countChar-1, SEEK_CUR);
+    *line = (char*) malloc(sizeof(char)*countChar);
+
+     for (i=0; i<countChar; i++)
+     {
+         (*line)[i] = fgetc(file);
+     }
+     (*line)[countChar] = '\0';
+
+    *(lineLength) = countChar;
 
     return countChar;
 }
@@ -62,13 +74,16 @@ int find_difference(t_difference* diff, t_env* env)
 			read = getline(&diff->line_file1, &len, env->fd_file1);
 		else
 			diff->line_file1 = "\0";
+
 		if (count < env->nbr_line_file2)
 			read2 = getline(&diff->line_file2, &len2, env->fd_file2);
 		else
 			diff->line_file2 = "\0";
+
 		i = compare(diff->line_file1, diff->line_file2);
-		if (i >= 0)
-		{
+
+
+		if (i >= 0) {
 			diff->state = 'c';
 			diff = Add_list(diff);
 			while (diff->next != NULL)
