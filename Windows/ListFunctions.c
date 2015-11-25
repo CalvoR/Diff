@@ -1,5 +1,6 @@
 #include "Prototypes.h"
 
+
 t_difference* Add_list(t_difference* diff)
 {
 	while (diff->next != NULL)

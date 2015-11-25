@@ -6,7 +6,6 @@
 
 typedef enum e_bool {false = 0, true = 1} bool;
 
-
 typedef struct s_env
 {
 	char*	name_file1;
@@ -17,7 +16,6 @@ typedef struct s_env
 	int	nbr_line_file2;
 	int	nbr_option;
 }	t_env;
-
 
 typedef struct s_difference   
 {
