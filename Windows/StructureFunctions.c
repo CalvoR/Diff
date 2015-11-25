@@ -41,7 +41,7 @@ void result(t_difference* diff)
 			if (diff->line_file2 != NULL)
 				printf("> %s", diff->line_file2);
 		}
-		diff = diff->next;
+		diff = (t_difference*) diff->next;
 	}
 	Delete_all_list(diff);
 }

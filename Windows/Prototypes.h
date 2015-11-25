@@ -20,6 +20,7 @@ void close_file(t_env*);
 
 	// Difference Functions
 
+ssize_t getline (char**, size_t*, FILE*);
 int compare(char*, char*);
 int	cmpt_line(FILE*);
 int	find_difference(t_difference*, t_env*);

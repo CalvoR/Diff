@@ -26,7 +26,7 @@ int main (int argc, char** argv)
 	}
 	init_struct_diff(&diff);
 
-    void *fonctionList[NB_OPTIONS] = {help}; /** ajouter le nom de la fonction à l'index correspondant dans le tableau des options **/
+    void (* fonctionList[NB_OPTIONS])(t_difference, t_env) = {help}; /** ajouter le nom de la fonction à l'index correspondant dans le tableau des options **/
 
     while(cursor < argc-2){
         if(argv[cursor][0] == '-'){

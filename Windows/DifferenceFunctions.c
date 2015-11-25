@@ -28,6 +28,23 @@ int	cmpt_line(FILE* file)
 	return nb_line;
 }
 
+ssize_t getline (char**line, size_t* lineLength, FILE*file)
+{
+    int i = 0;
+    ssize_t countChar = 0;
+    char currentChar = ' ';
+
+    for(i=0; i<*lineLength; i++)
+    {
+        if (currentChar=fgetc(file), currentChar == '\0' || !feof(file))
+            return countChar;
+
+        (*line)[i] = currentChar;
+        countChar++;
+    }
+
+    return countChar;
+}
 
 int find_difference(t_difference* diff, t_env* env)
 {
@@ -56,7 +73,7 @@ int find_difference(t_difference* diff, t_env* env)
 			diff = Add_list(diff);
 			while (diff->next != NULL)
 			{
-				diff = diff->next;
+				diff = (t_difference*) diff->next;
 			}
 		}
 		count++;
