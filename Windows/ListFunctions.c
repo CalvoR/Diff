@@ -4,8 +4,7 @@
 t_difference* add_list(t_difference* diff)
 {
 	t_difference* tmp;
-	while (diff->next != NULL)
-	{
+	while (diff->next != NULL)  {
 		diff = diff->next;
 	}
 	/*diff->next*/tmp = (t_difference*)malloc(sizeof(t_difference));
