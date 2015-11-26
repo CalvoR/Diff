@@ -9,19 +9,15 @@ int check_option(char* option)
 
     char* list_char_options[] = {"","-q","-s","-c","-u","-e","-n","-y","-W","","","-p","-F","","-t","-T","","","-l","-r","-N","","","","-x","-X","-S","","","-i","-E","-Z","-b","-w","-B","-I","-a","","-D","","","","-d","","","","-v"};
 
-    //listFunction[]// creer un tableau de pointeurs de fonctions
-
     if(option[1] == '-'){
         for(i = 0; i<sizeof(list_string_options)/4; i++){
-            if(strcmp(option, list_string_options[i]) == 0){
-                strcpy(option, "-string"); /** supprimer cette ligne **/
+            if(strcmp(option, list_string_options[i]) == 0){ //check if the argument is got an associated option
                 return i;
             }
         }
     }else{
         for(i = 0; i<sizeof(list_char_options)/4; i++){
-            if(strcmp(option, list_char_options[i]) == 0){
-                strcpy(option, "-c"); /** supprimer cette ligne **/
+            if(strcmp(option, list_char_options[i]) == 0){ //check if the argument is got an associated option
                 return i;
             }
         }

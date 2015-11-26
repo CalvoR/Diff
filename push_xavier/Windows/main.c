@@ -26,10 +26,9 @@ int main (int argc, char** argv)
 	}
 	init_struct_diff(&diff);
 
-    void (* fonctionList[NB_OPTIONS])(t_difference, t_env) = {help}; /** ajouter le nom de la fonction à l'index correspondant dans le tableau des options **/
-                                                                    // this contains a list of the function's names corresponding with table of the options
+    void (* fonctionList[NB_OPTIONS])(t_difference, t_env); // this contains a list of the function's names corresponding with table of the options
 
-	if (env.nbr_option == 0)        // case of classic
+	if (env.nbr_option == 0) // case of classic
 	{
 		if (find_difference(&diff, &env) == -2)
 			printf("Pas de difference\n");
@@ -38,9 +37,7 @@ int main (int argc, char** argv)
     {
         while(cursor < argc-2){
             if(argv[cursor][0] == '-'){
-                fonctionList[check_option(argv[cursor])](diff, env); /** the argument number of this function can change **/
-
-                /** creer un appel direct à la focntion via le tableau de pointeur de fonction + verifie le nombre d'argument à envoyer**/
+                fonctionList[check_option(argv[cursor])](diff, env);
             }   // this creates a direct call to the function through the table of function pointers + checks the number of argument to send
             cursor++;
         }
