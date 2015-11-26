@@ -1,49 +1,53 @@
-/*
-    SCARPELLINI Xavier
-    CALVO Robert
-    MEZELLE Clément
-
-    Projet de langage C
-*/
-
-
-
 #include "Prototypes.h"
 
 
 
-int main(int argc, char** argv)
+void help()
 {
-    int cursor = 1; // index of the current argument
+    printf("Help");
+}
 
-    if (!ArgumentsControl (argc, argv)) /** /!\ la deuxieme partie de la fonction démarre à partir du 3eme arguments au lieu de s'arreter 2 argument avant la fin **/
-        return 0;
-/*
-    FILE* fileSrc = ChargeFile(argv[1]);           // pointeur sur le premier fichier, source de la comparaison
-    FILE* fileCmp = ChargeFile(argv[2]);           // pointeur sur le second fichier, comparatif du fichier source
 
-    if (fileSrc == NULL  ||  fileCmp == NULL )
-        return 0;
-*/
-    void *fonctionList[] = {}; /** ajouter le nom de la fonction à l'index correspondant dans le tableau des options **/
+int main (int argc, char** argv)
+{
+	t_env		env;        // structure of specifics about the current environment of execution (including file details)
+	t_difference	diff;   // linked-list that contains details about each difference that was found
 
-    while(cursor < argc-2){
-        if(argv[cursor][0] == '-'){
-            fonctionList[CheckOption(argv[cursor])](argv[1], argv[2], argv[cursor], argv[cursor+1], argv[cursor+2]); /** le nombre d'argument de cette fonction peut changer **/
+    int cursor = 1;         // index of the current argument
 
-            /** creer un appel direct à la focntion via le tableau de pointeur de fonction + verifie le nombre d'argument à envoyer**/
+	if (argc < 3) {
+		printf("Il n'y a pas assez d'argument.\n");
+		return 0;
+	}
+
+	if (init_struct_env(&env, argc, argv) == -1)    {
+		printf("Erreur d'initialisation de la structure.\n");
+		return -1;
+	}
+	init_struct_diff(&diff);
+
+    void (* fonctionList[NB_OPTIONS])(t_difference, t_env) = {help}; /** ajouter le nom de la fonction à l'index correspondant dans le tableau des options **/
+                                                                    // this contains a list of the function's names corresponding with table of the options
+
+	if (env.nbr_option == 0)        // case of classic
+	{
+		if (find_difference(&diff, &env) == -2)
+			printf("Pas de difference\n");
+	}
+	else
+    {
+        while(cursor < argc-2){
+            if(argv[cursor][0] == '-'){
+                fonctionList[CheckOption(argv[cursor])](diff, env); /** the argument number of this function can change **/
+
+                /** creer un appel direct à la focntion via le tableau de pointeur de fonction + verifie le nombre d'argument à envoyer**/
+            }   // this creates a direct call to the function through the table of function pointers + checks the number of argument to send
+            cursor++;
         }
-        cursor++;
     }
 
-    char* lineSrc, *lineDest;
 
-
-    ////
-    ////
-
-
-//    FreeFiles(fileSrc, fileCmp);
-
-    return 0;
+	result(&diff);
+	close_file(&env);
+	return 0;
 }

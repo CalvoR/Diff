@@ -1,17 +1,30 @@
 #ifndef STRUCTURE_H_INCLUDED
 #define STRUCTURE_H_INCLUDED
 
+#include <stdio.h>
+#include <stdlib.h>
 
-struct difference   {
+typedef enum e_bool {false = 0, true = 1} bool;
 
-	char diffType ;
+typedef struct s_env
+{
+	char* name_file1;
+	char* name_file2;
+	FILE* fd_file1;
+	FILE* fd_file2;
+	int	nbr_line_file1;
+	int	nbr_line_file2;
+	int	nbr_option;
+}	t_env;
 
-	int startLineSrc ;
-	int endLineSrc ;
-    int startLineDest ;
-	int endLineDest ;
+typedef struct s_difference
+{
 
-	t_difference* nextDiff;
+	char* line_file1;
+	char* line_file2;
+	int num_line;
+	char state;
+	struct t_difference* next;
 
 } t_difference;
 
