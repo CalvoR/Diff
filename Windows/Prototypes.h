@@ -11,7 +11,7 @@
 
     // Arguments Functions
 
-int CheckOption(char* option);
+int check_option(char* option);
 
     // File Functions
 
@@ -27,8 +27,8 @@ int	find_difference(t_difference*, t_env*);
 
 	// List functions
 
-t_difference* Add_list(t_difference*);
-void Delete_all_list(t_difference*);
+t_difference* add_list(t_difference*);
+void delete_list(t_difference*);
 
     // Structure Functions
 

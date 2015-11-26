@@ -1,29 +1,37 @@
 #include "Prototypes.h"
 
 
-t_difference* Add_list(t_difference* diff)
+t_difference* add_list(t_difference* diff)
 {
+	t_difference* tmp;
 	while (diff->next != NULL)
 	{
-		diff = (t_difference*) diff->next;
+		diff = diff->next;
 	}
-	diff->next = malloc(sizeof(t_difference));
-	diff = (t_difference*) diff->next;
-	diff->line_file1 = NULL;
-	diff->line_file2 = NULL;
-	diff->num_line = 0;
-	diff->state = '\0';
-	diff->next = NULL;
+	/*diff->next*/tmp = (t_difference*)malloc(sizeof(t_difference));
+
+	tmp->line_file1 = NULL;
+	tmp->line_file2 = NULL;
+	tmp->num_line = 0;
+	tmp->state = '\0';
+	tmp->next = NULL;
+	diff->next = tmp;
 	return diff;
 }
 
-void Delete_all_list(t_difference* diff)
+void  delete_list(t_difference* diff)
 {
-	t_difference*	diff_tmp;
-	while (diff->next != NULL)
+	if (!diff)
 	{
-		diff_tmp = (t_difference*) diff->next;
-		free(diff);
-		diff = diff_tmp;
+		t_difference*	diff_tmp;
+		t_difference*	diff_save;
+		diff_save = diff->next;
+		while (diff->next != NULL)
+		{
+			diff_tmp = diff;
+			free(diff_tmp);
+			diff = diff_save;
+			diff_save = diff->next;
+		}
 	}
 }

@@ -10,8 +10,8 @@ void help()
 
 int main (int argc, char** argv)
 {
-	t_env		env;        // structure of specifics about the current environment of execution (including file details)
-	t_difference	diff;   // linked-list that contains details about each difference that was found
+	t_env  env;        // structure of specifics about the current environment of execution (including file details)
+	t_difference  diff;   // linked-list that contains details about each difference that was found
 
     int cursor = 1;         // index of the current argument
 
@@ -38,14 +38,13 @@ int main (int argc, char** argv)
     {
         while(cursor < argc-2){
             if(argv[cursor][0] == '-'){
-                fonctionList[CheckOption(argv[cursor])](diff, env); /** the argument number of this function can change **/
+                fonctionList[check_option(argv[cursor])](diff, env); /** the argument number of this function can change **/
 
                 /** creer un appel direct à la focntion via le tableau de pointeur de fonction + verifie le nombre d'argument à envoyer**/
             }   // this creates a direct call to the function through the table of function pointers + checks the number of argument to send
             cursor++;
         }
     }
-
 
 	result(&diff);
 	close_file(&env);

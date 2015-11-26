@@ -24,7 +24,7 @@ typedef struct s_difference
 	char* line_file2;
 	int num_line;
 	char state;
-	struct t_difference* next;
+	struct s_difference* next;
 
 } t_difference;
 
