@@ -14,7 +14,13 @@ typedef struct s_env
 	FILE*	fd_file2;
 	int	nbr_line_file1;
 	int	nbr_line_file2;
+	int	count_diff_file1;
+	int	count_diff_file2;
+	int	count_diff_begin;
 	int	nbr_option;
+	bool	w;
+	bool	i;
+	bool	E;
 }	t_env;
 
 typedef struct s_difference   
@@ -24,8 +30,10 @@ typedef struct s_difference
 	char*			line_file2;
 	int			num_line;
 	char			state;
-	struct t_difference*	next;
+	struct s_difference*	next;
 
 } t_difference;
+
+//typedef t_difference* diff;
 
 #endif // STRUCTURE_H_INCLUDED

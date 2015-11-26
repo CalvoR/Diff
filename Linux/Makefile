@@ -1,20 +1,20 @@
 NAME	=	my_diff
 
 SRC	=	main.c			\
-		FilesFunctions.c	\
-		ArgumentsFunctions.c
+		Liste.c			\
+		find_difference.c	
 
 OBJS	=	$(SRC:.c=.o)
 
 CC	=	gcc
 
-CFLAGS	=	-W -Wall -Werror
-
-
-$NAME: $(OBJS)
-	$(CC)  $(OBJS) -o $(NAME)
+CFLAGS	=	-W -Wall 
 
 all:	$(NAME)
+
+$(NAME): $(OBJS)
+	$(CC)   -o $(NAME) $(OBJS) -g 
+
 
 clean:
 	rm -f $(OBJS)
